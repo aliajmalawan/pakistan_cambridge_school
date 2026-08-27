@@ -8,4 +8,5 @@ $seo=$seo ?? App\Core\Seo::make()->title($pageTitle ?? setting('site_name',APP_N
 <link rel="stylesheet" href="<?= asset_v('css/site.css') ?>"><script>document.documentElement.classList.add('js')</script></head><body>
 <a href="#main" class="skip-link">Skip to content</a><?php App\Core\View::partial('partials/navbar'); ?>
 <?php if($msg=flash('success')):?><div class="site-alert success" role="status"><?=e($msg)?></div><?php endif;?><?php if($msg=flash('error')):?><div class="site-alert error" role="alert"><?=e($msg)?></div><?php endif;?>
-<main id="main"><?= $content ?></main><?php App\Core\View::partial('partials/footer'); ?><script src="<?= asset_v('js/site.js') ?>" defer></script></body></html>
+<main id="main"><?= $content ?></main><?php App\Core\View::partial('partials/footer'); ?><script src="<?= asset_v('js/site.js') ?>" defer></script>
+</body></html>
