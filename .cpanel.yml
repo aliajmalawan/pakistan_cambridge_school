@@ -1,0 +1,8 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/CPANEL_USERNAME/public_html/
+    - /bin/mkdir -p $DEPLOYPATH
+    - /usr/bin/rsync -rlptDvz --exclude=.git --exclude=.cpanel.yml --exclude=.gitignore --exclude=uploads --exclude=config/database.php --exclude=database --exclude=create_admin.php --exclude=README_PAKISTAN_CAMBRIDGE_ADMIN.md ./ $DEPLOYPATH
+    - /bin/mkdir -p $DEPLOYPATH/uploads
+    - /bin/cp -n ./config/database.php $DEPLOYPATH/config/database.php

@@ -1,0 +1,8 @@
+# One-time admin creator script — contains a hardcoded default password.
+# Run it locally when needed, don't commit it.
+create_admin.php
+
+# OS/editor cruft
+.DS_Store
+Thumbs.db
+*.log
