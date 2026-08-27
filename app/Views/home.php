@@ -15,6 +15,12 @@ $admissionsOpen=setting('admissions_open')==='1';
                 <p><?=e($hero['subtitle'])?></p>
                 <div class="hero-actions"><a class="btn btn-primary" href="<?=e($hero['cta_link']?:'#admissions')?>"><?=e($hero['cta_text']?:'Explore Our School')?> <span>→</span></a><a class="btn btn-ghost" href="#academics">Discover Academics <span>↓</span></a></div>
             </div>
+            <?php if($heroImage):?>
+            <div class="hero-visual">
+                <div class="hero-visual-card"><img src="<?=e(upload_url($heroImage))?>" alt="<?=e($hero['title'])?>"></div>
+                <?php if($statStudents=setting('stat_students')):?><div class="hero-visual-badge"><span class="hero-visual-badge-icon"><?=icon('users',18)?></span><div><strong><?=e($statStudents)?></strong><small>Active Students</small></div></div><?php endif;?>
+            </div>
+            <?php endif;?>
         </div>
     </div>
     <?php endforeach;?>
