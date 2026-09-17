@@ -22,8 +22,8 @@ return [
     'production' => [
         'host'    => 'localhost',
         'port'    => 3306,
-        'name'    => 'CPANEL_DB_NAME',
-        'user'    => 'CPANEL_DB_USER',
+        'name'    => 'pcshfdco_pcs',
+        'user'    => 'pcshfdco_pcsshfd',
         'pass'    => 'CPANEL_DB_PASSWORD',
         'charset' => 'utf8mb4',
     ],
