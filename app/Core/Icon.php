@@ -49,6 +49,7 @@ final class Icon
         'wallet'     => '<path d="M3 7a2 2 0 012-2h13a1 1 0 011 1v3"/><path d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2v-7a2 2 0 00-2-2H5a2 2 0 01-2-2z"/><circle cx="17" cy="14" r="1.5"/>',
         'smartphone' => '<rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/>',
         'userCheck'  => '<path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m17 11 2 2 4-4"/>',
+        'lock'       => '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/>',
     ];
 
     public static function svg(string $name, int $size = 24, string $classes = ''): string

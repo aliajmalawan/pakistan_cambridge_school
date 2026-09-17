@@ -127,6 +127,17 @@
 .ds-grid .ds-card:nth-child(6){--c:#DC2626}
 .ds-grid .ds-card:nth-child(7){--c:#0891B2}
 .ds-grid .ds-card:nth-child(8){--c:#D97706}
+.ds-grid .ds-card:nth-child(9){--c:#4F46E5}
+.ds-grid .ds-card:nth-child(10){--c:#DB2777}
+.ds-grid .ds-card:nth-child(11){--c:#059669}
+.ds-grid .ds-card:nth-child(12){--c:#92400E}
+.ds-grid .ds-card:nth-child(13){--c:#65A30D}
+.ds-grid .ds-card:nth-child(14){--c:#EA580C}
+.ds-grid .ds-card:nth-child(15){--c:#0369A1}
+.ds-grid .ds-card:nth-child(16){--c:#A21CAF}
+.ds-grid .ds-card:nth-child(17){--c:#1E3A8A}
+.ds-grid .ds-card:nth-child(18){--c:#334155}
+.ds-grid .ds-card:nth-child(19){--c:#CA8A04}
 .ds-app-banner{display:flex;align-items:center;gap:24px;background:linear-gradient(120deg,#0A63B0,#083D80);border-radius:24px;padding:36px 40px;margin-top:32px;flex-wrap:wrap}
 .ds-app-icon{width:64px;height:64px;border-radius:16px;background:#F59E0B;color:#fff;display:grid;place-items:center;flex-shrink:0}
 .ds-app-text{flex:1;min-width:220px}
