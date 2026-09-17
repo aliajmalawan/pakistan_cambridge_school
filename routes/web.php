@@ -41,6 +41,7 @@ $router->get('/downloads/{id}', [PublicController::class, 'download']);
 $router->get('/contact', [PublicController::class, 'routePage']);
 $router->post('/contact/send', [ContactController::class, 'store']);
 $router->get('/search', [PublicController::class, 'routePage']);
+$router->get('/sitemap.xml', [PublicController::class, 'sitemap']);
 
 
 // ---------- Admin: auth ----------
@@ -127,6 +128,13 @@ $router->post('/admin/faculty/store', [Admin\FacultyController::class, 'store'])
 $router->get('/admin/faculty/edit/{id}', [Admin\FacultyController::class, 'edit']);
 $router->post('/admin/faculty/update/{id}', [Admin\FacultyController::class, 'update']);
 $router->post('/admin/faculty/delete/{id}', [Admin\FacultyController::class, 'destroy']);
+
+$router->get('/admin/downloads', [Admin\DownloadController::class, 'index']);
+$router->get('/admin/downloads/create', [Admin\DownloadController::class, 'create']);
+$router->post('/admin/downloads/store', [Admin\DownloadController::class, 'store']);
+$router->get('/admin/downloads/edit/{id}', [Admin\DownloadController::class, 'edit']);
+$router->post('/admin/downloads/update/{id}', [Admin\DownloadController::class, 'update']);
+$router->post('/admin/downloads/delete/{id}', [Admin\DownloadController::class, 'destroy']);
 
 // ---------- Admin: leadership ----------
 $router->get('/admin/leadership', [Admin\LeadershipController::class, 'index']);

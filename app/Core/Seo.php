@@ -215,7 +215,7 @@ final class Seo
         $out[] = '<meta name="twitter:image" content="' . e($this->ogImage()) . '">';
 
         // Geo
-        $out[] = '<meta name="geo.region" content="PK-KP">';
+        $out[] = '<meta name="geo.region" content="PK-PB">';
         $out[] = '<meta name="geo.placename" content="Hafizabad, Punjab">';
 
         $out[] = '<script type="application/ld+json">' . $jsonLd . '</script>';

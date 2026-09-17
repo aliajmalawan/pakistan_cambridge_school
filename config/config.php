@@ -55,6 +55,8 @@ define('UPLOAD_PATH', ROOT_PATH . '/uploads');
 define('UPLOAD_URL', BASE_URL . '/uploads');
 const UPLOAD_MAX_BYTES = 4 * 1024 * 1024; // 4 MB
 const UPLOAD_ALLOWED = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+const DOCUMENT_MAX_BYTES = 8 * 1024 * 1024; // 8 MB
+const DOCUMENT_ALLOWED = ['pdf', 'doc', 'docx', 'xls', 'xlsx'];
 
 // ---------------------------------------------------------------- pagination
 const PER_PAGE = 12;

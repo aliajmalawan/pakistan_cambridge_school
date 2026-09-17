@@ -33,7 +33,7 @@ $renderLabel = static function (string $label) use ($labelOverrides): string {
     <div class="topbar">
         <div class="container topbar-inner">
             <a class="brand topbar-brand" href="<?= url('/') ?>" aria-label="Pakistan Cambridge School home">
-                <img class="brand-logo" src="<?= asset('img/pcs-logo.png') ?>" alt="Pakistan Cambridge School logo">
+                <img class="brand-logo" src="<?= e(logo_url(96)) ?>" alt="Pakistan Cambridge School logo">
                 <span class="brand-copy"><strong>Pakistan Cambridge School</strong><small>Hafizabad</small></span>
             </a>
             <div class="topbar-contact">

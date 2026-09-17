@@ -154,7 +154,7 @@ $routeKey = $route ?? '';
                 <?php foreach ($academicCalendar as $term): ?>
                 <article class="calendar-item <?= !empty($term['milestone']) ? 'cal-exam' : 'cal-event' ?>">
                     <div class="calendar-date"><strong><?= !empty($term['milestone']) ? '★' : '—' ?></strong><span><?= !empty($term['milestone']) ? 'Exams' : 'Term' ?></span></div>
-                    <div><span class="calendar-type"><?= e($term['period'] ?? '') ?></span><h3><?= e($term['term']) ?></h3><p><?= e($term['detail'] ?? '') ?></p></div>
+                    <div><span class="calendar-type"><?= e($term['period'] ?? '') ?></span><h3><?= e($term['term']) ?></h3><p><?= e(public_detail($term['detail'] ?? '')) ?></p></div>
                 </article>
                 <?php endforeach; ?>
             </div>
@@ -175,7 +175,7 @@ $routeKey = $route ?? '';
                                 <span class="cal-type-badge <?= $tc ?>"><?= e($CE::TYPES[$event['type']] ?? ucfirst($event['type'])) ?></span>
                                 <h3><?= e($event['title']) ?></h3>
                                 <?php if (!empty($event['ends_on']) && $event['ends_on'] !== $event['starts_on']): ?><p class="cal-daterange"><?= e($CE::dateLabel($event)) ?> · <?= $CE::days($event) ?> days</p><?php endif; ?>
-                                <p><?= e($event['detail'] ?? '') ?></p>
+                                <p><?= e(public_detail($event['detail'] ?? '')) ?></p>
                             </div>
                         </article>
                         <?php endforeach; ?>
@@ -216,7 +216,7 @@ $routeKey = $route ?? '';
 
         <?php elseif ($routeKey === '/faculty'): ?>
             <?php if ($body): ?><div class="rich-content intro-copy"><?= $body ?></div><?php endif; ?>
-            <div class="people-grid inner-people-grid"><?php foreach ($faculty as $person): ?><article class="person-card"><?php if (!empty($person['photo'])): ?><img src="<?= e(upload_url($person['photo'])) ?>" alt="<?= e($person['name']) ?>"><?php else: ?><div class="person-placeholder"><?= icon('user', 40) ?></div><?php endif; ?><div><span><?= e($person['designation']) ?></span><h3><?= e($person['name']) ?></h3><p><?= e($person['qualification']) ?></p><small><?= e($person['department']) ?></small><?php if (!empty($person['bio'])): ?><div class="person-bio"><?= e($person['bio']) ?></div><?php endif; ?></div></article><?php endforeach; ?></div>
+            <div class="people-grid inner-people-grid"><?php foreach ($faculty as $person): ?><article class="person-card"><?php if (!empty($person['photo'])): ?><img src="<?= e(upload_url($person['photo'])) ?>" alt="<?= e($person['name']) ?>"><?php else: ?><div class="person-placeholder"><?= icon('user', 40) ?></div><?php endif; ?><div><span><?= e($person['designation']) ?></span><h3><?= e($person['name']) ?></h3><?php if (!empty($person['qualification']) && !str_starts_with($person['qualification'], 'Placeholder card')): ?><p><?= e($person['qualification']) ?></p><?php endif; ?><small><?= e($person['department']) ?></small><?php if (!empty($person['bio'])): ?><div class="person-bio"><?= e($person['bio']) ?></div><?php endif; ?></div></article><?php endforeach; ?></div>
 
         <?php elseif ($routeKey === '/news'): ?>
             <div class="news-grid inner-news-grid"><?php foreach ($news as $item): ?><article class="news-card"><?php if (!empty($item['image'])): ?><img src="<?= e(upload_url($item['image'])) ?>" alt="<?= e($item['title']) ?>"><?php else: ?><div class="news-placeholder"><span><?= e(strtoupper(substr($item['category'] ?? 'NEWS', 0, 1))) ?></span></div><?php endif; ?><div class="news-body"><span class="news-meta"><?= e(ucfirst($item['category'] ?? 'News')) ?> • <?= e(format_date($item['published_at'] ?? $item['created_at'] ?? null, 'd M Y')) ?></span><h3><?= e($item['title']) ?></h3><p><?= e(excerpt($item['content'] ?? '', 180)) ?></p></div></article><?php endforeach; ?></div>

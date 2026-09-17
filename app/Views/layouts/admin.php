@@ -62,6 +62,7 @@
       echo $item('/admin/faculty', 'Faculty', '👥');
       echo $item('/admin/testimonials', 'Testimonials', '💬');
       echo $item('/admin/gallery', 'Gallery', '📷');
+      echo $item('/admin/downloads', 'Downloads & Forms', '📎');
       echo $group('Inbox');
       echo $item('/admin/admissions', 'Admission Applications', '📝');
       echo $item('/admin/messages', 'Contact Messages', '✉');

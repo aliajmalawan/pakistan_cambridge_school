@@ -8,6 +8,7 @@ use App\Core\Controller;
 use App\Core\Database;
 use App\Models\AcademicCalendar;
 use App\Models\AcademicFramework;
+use App\Models\Blog;
 use App\Models\CalendarEvent;
 use App\Models\ClassSubject;
 use App\Models\CoreValue;
@@ -110,6 +111,50 @@ final class PublicController extends Controller
         $this->view('page', $data);
     }
 
+
+    /** XML sitemap — every public URL a search engine should crawl. */
+    public function sitemap(): void
+    {
+        $urls = [];
+        $add = function (string $path, string $freq = 'monthly', float $priority = 0.6) use (&$urls) {
+            $urls[] = ['loc' => url($path), 'freq' => $freq, 'priority' => $priority];
+        };
+
+        $add('/', 'weekly', 1.0);
+        foreach ([
+            '/about', '/vision-mission', '/leadership', '/faculty',
+            '/academics', '/academic-calendar', '/programs', '/fees', '/facilities', '/rules',
+            '/admissions', '/gallery', '/downloads', '/news', '/blogs', '/contact',
+        ] as $path) {
+            $add($path, 'monthly', 0.7);
+        }
+
+        foreach (Blog::latest(500) as $post) {
+            $add('/blogs/' . $post['slug'], 'monthly', 0.5);
+        }
+
+        // 'about', 'facilities' and 'rules' are content pages but are already
+        // listed above under their own clean root URL — /page/<slug> would
+        // duplicate them.
+        $rootAliased = ['about', 'facilities', 'rules'];
+        foreach (Page::contentPages() as $page) {
+            if (($page['status'] ?? '') === 'published' && !in_array($page['slug'], $rootAliased, true)) {
+                $add('/page/' . $page['slug'], 'monthly', 0.5);
+            }
+        }
+
+        header('Content-Type: application/xml; charset=utf-8');
+        echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
+        echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+        foreach ($urls as $u) {
+            echo "  <url>\n";
+            echo '    <loc>' . e($u['loc']) . "</loc>\n";
+            echo '    <changefreq>' . $u['freq'] . "</changefreq>\n";
+            echo '    <priority>' . $u['priority'] . "</priority>\n";
+            echo "  </url>\n";
+        }
+        echo '</urlset>';
+    }
 
     /** Stream a published download or redirect to its external URL. */
     public function download(string $id): void

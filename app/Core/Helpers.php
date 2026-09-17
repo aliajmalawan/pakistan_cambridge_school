@@ -158,6 +158,12 @@ function slugify(string $text): string
  * Plain-text summary, cut on a word boundary so an excerpt never ends
  * mid-word ("… 1st Ye…"). Trailing punctuation is trimmed with it.
  */
+/** Strip the internal "placeholder date, replace via Admin..." note some seeded rows carry. */
+function public_detail(?string $text): string
+{
+    return trim(preg_replace('/\s*[—-]\s*placeholder[^.]*\.?\s*$/iu', '', $text ?? ''));
+}
+
 function excerpt(string $html, int $length = 160): string
 {
     $text = trim(preg_replace('/\s+/', ' ', strip_tags($html)) ?? '');
@@ -249,7 +255,41 @@ function handle_upload(string $field, string $dir, int $maxWidth = ImageService:
     return $dir . '/' . $name;
 }
 
-/** Remove an upload and its WebP twin. */
+/**
+ * Save a non-image document (PDF/DOC/XLS) as-is — no resizing, no WebP twin.
+ * Returns ['path' => ..., 'size' => bytes, 'ext' => ...] or null.
+ */
+function handle_document_upload(string $field, string $dir): ?array
+{
+    if (empty($_FILES[$field]['name']) || ($_FILES[$field]['error'] ?? UPLOAD_ERR_NO_FILE) === UPLOAD_ERR_NO_FILE) {
+        return null;
+    }
+    $file = $_FILES[$field];
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        Session::flash('error', 'File upload failed (error code ' . $file['error'] . ').');
+        return null;
+    }
+    if ($file['size'] > DOCUMENT_MAX_BYTES) {
+        Session::flash('error', 'File exceeds the 8 MB size limit.');
+        return null;
+    }
+    $ext = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+    if (!in_array($ext, DOCUMENT_ALLOWED, true)) {
+        Session::flash('error', 'Only PDF, DOC, DOCX, XLS and XLSX files are allowed.');
+        return null;
+    }
+    $name = date('Ymd-His') . '-' . bin2hex(random_bytes(4)) . '.' . $ext;
+    $target = UPLOAD_PATH . '/' . $dir;
+    if (!is_dir($target)) {
+        mkdir($target, 0775, true);
+    }
+    if (!move_uploaded_file($file['tmp_name'], $target . '/' . $name)) {
+        Session::flash('error', 'Could not save the uploaded file.');
+        return null;
+    }
+    return ['path' => $dir . '/' . $name, 'size' => (int) $file['size'], 'ext' => $ext];
+}
+
 /**
  * Did the admin tick "Remove this image" for this field?
  *

@@ -11,7 +11,7 @@ foreach (Page::contentPages() as $p) {
 <footer class="site-footer" id="contact">
     <div class="container footer-grid">
         <div class="footer-brand">
-            <img class="footer-logo" src="<?= asset('img/pcs-logo.png') ?>" alt="Pakistan Cambridge School">
+            <img class="footer-logo" src="<?= e(logo_url(96)) ?>" alt="Pakistan Cambridge School">
             <h3>Pakistan Cambridge School</h3>
             <p><?= e(setting('footer_about', 'Building confident learners, responsible citizens and future leaders through purposeful education.')) ?></p>
             <div class="socials">
