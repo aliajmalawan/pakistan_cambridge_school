@@ -219,7 +219,11 @@ $routeKey = $route ?? '';
             <div class="people-grid inner-people-grid"><?php foreach ($faculty as $person): ?><article class="person-card"><?php if (!empty($person['photo'])): ?><img src="<?= e(upload_url($person['photo'])) ?>" alt="<?= e($person['name']) ?>"><?php else: ?><div class="person-placeholder"><?= icon('user', 40) ?></div><?php endif; ?><div><span><?= e($person['designation']) ?></span><h3><?= e($person['name']) ?></h3><?php if (!empty($person['qualification']) && !str_starts_with($person['qualification'], 'Placeholder card')): ?><p><?= e($person['qualification']) ?></p><?php endif; ?><small><?= e($person['department']) ?></small><?php if (!empty($person['bio'])): ?><div class="person-bio"><?= e($person['bio']) ?></div><?php endif; ?></div></article><?php endforeach; ?></div>
 
         <?php elseif ($routeKey === '/news'): ?>
+            <?php if ($news): ?>
             <div class="news-grid inner-news-grid"><?php foreach ($news as $item): ?><article class="news-card"><?php if (!empty($item['image'])): ?><img src="<?= e(upload_url($item['image'])) ?>" alt="<?= e($item['title']) ?>"><?php else: ?><div class="news-placeholder"><span><?= e(strtoupper(substr($item['category'] ?? 'NEWS', 0, 1))) ?></span></div><?php endif; ?><div class="news-body"><span class="news-meta"><?= e(ucfirst($item['category'] ?? 'News')) ?> • <?= e(format_date($item['published_at'] ?? $item['created_at'] ?? null, 'd M Y')) ?></span><h3><?= e($item['title']) ?></h3><p><?= e(excerpt($item['content'] ?? '', 180)) ?></p></div></article><?php endforeach; ?></div>
+            <?php else: ?>
+            <div class="empty-state">No news or notices have been published yet.</div>
+            <?php endif; ?>
 
         <?php elseif ($routeKey === '/gallery'): ?>
             <?php if ($galleryImages): ?>
@@ -235,7 +239,11 @@ $routeKey = $route ?? '';
             <?php endif; ?>
 
         <?php elseif ($routeKey === '/downloads'): ?>
+            <?php if ($downloads): ?>
             <div class="download-grid"><?php foreach ($downloads as $category => $items): ?><section class="download-group"><div class="section-row inner-section-row"><div><span class="eyebrow dark"><i></i>Resources</span><h2><?= e($category) ?></h2></div></div><?php foreach ($items as $item): ?><a class="download-item" href="<?= url('/downloads/' . $item['id']) ?>"><span class="download-icon">↓</span><div><strong><?= e($item['title']) ?></strong><small><?= e($item['description'] ?? '') ?><?= !empty($item['file_size']) ? ' • ' . e(\App\Models\Download::humanSize((int)$item['file_size'])) : '' ?></small></div><b>↗</b></a><?php endforeach; ?></section><?php endforeach; ?></div>
+            <?php else: ?>
+            <div class="empty-state">No downloads have been published yet.</div>
+            <?php endif; ?>
 
         <?php elseif ($routeKey === '/admissions'): ?>
             <div class="admission-page-grid" data-reveal><div><span class="eyebrow dark"><i></i>Admissions 2026–27</span><h2>Give your child a place to <em>grow.</em></h2><div class="rich-content"><?= $body ?: '<p>Applications are welcomed across our published academic pathways. Our admissions team will guide families through documentation, assessment and the next steps.</p>' ?></div><div class="admission-steps"><div><b>01</b><span>Submit application</span></div><div><b>02</b><span>Assessment & meeting</span></div><div><b>03</b><span>Offer & enrolment</span></div></div></div><div class="admission-panel"><span class="eyebrow light"><i></i>Start a conversation</span><h3>Ready to apply?</h3><p>Fill in the application form below, or contact the office directly for current class availability and required documents.</p><a class="btn btn-white" href="#apply">Apply Online ↓</a></div></div>

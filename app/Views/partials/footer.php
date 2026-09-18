@@ -16,7 +16,7 @@ foreach (Page::contentPages() as $p) {
             <p><?= e(setting('footer_about', 'Building confident learners, responsible citizens and future leaders through purposeful education.')) ?></p>
             <div class="socials">
                 <?php if ($facebook = setting('facebook')): ?><a href="<?= e($facebook) ?>" target="_blank" rel="noopener">f</a><?php endif; ?>
-                <?php if ($youtube = setting('youtube')): ?><a href="<?= e($youtube) ?>" target="_blank" rel="noopener">▶</a><?php endif; ?>
+                <?php if (($youtube = setting('youtube')) && $youtube !== '#'): ?><a href="<?= e($youtube) ?>" target="_blank" rel="noopener">▶</a><?php endif; ?>
                 <?php if ($whatsapp = setting('whatsapp')): ?><a href="<?= e($whatsapp) ?>" target="_blank" rel="noopener">◉</a><?php endif; ?>
             </div>
         </div>

@@ -9,6 +9,7 @@ use App\Core\Controller;
 use App\Core\Csrf;
 use App\Core\Session;
 use App\Models\ActivityLog;
+use App\Models\LoginAttempt;
 
 final class AuthController extends Controller
 {
@@ -26,11 +27,20 @@ final class AuthController extends Controller
         $email = $this->input('email');
         $password = $this->input('password');
 
+        if ($email !== '' && LoginAttempt::isLocked($email)) {
+            Session::flash('error', 'Too many failed sign-in attempts. Please wait '
+                . LoginAttempt::minutesToWait() . ' minutes and try again.');
+            keep_old(['email' => $email]);
+            redirect('/admin/login');
+        }
+
         if (Auth::attempt($email, $password)) {
+            LoginAttempt::record($email, true);
             ActivityLog::record('login', 'auth', 'Signed in to the admin panel');
             redirect('/admin');
         }
 
+        LoginAttempt::record($email, false);
         Session::flash('error', 'Invalid email or password, or the account is disabled.');
         keep_old(['email' => $email]);
         redirect('/admin/login');

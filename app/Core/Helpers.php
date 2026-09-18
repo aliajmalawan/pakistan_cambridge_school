@@ -17,6 +17,22 @@ function url(string $path = ''): string
     return BASE_URL . '/' . ltrim($path, '/');
 }
 
+/**
+ * The current request path with BASE_URL's own subdirectory prefix removed,
+ * e.g. REQUEST_URI "/PCS/about" on a site hosted in /PCS becomes "/about".
+ * Feed this into url()/canonical() — passing raw REQUEST_URI double-prefixes
+ * the path on any install that lives in a subdirectory.
+ */
+function current_path(): string
+{
+    $uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+    $base = parse_url(BASE_URL, PHP_URL_PATH) ?: '';
+    if ($base !== '' && str_starts_with($uri, $base)) {
+        $uri = substr($uri, strlen($base));
+    }
+    return '/' . ltrim($uri, '/');
+}
+
 function asset(string $path): string
 {
     return BASE_URL . '/assets/' . ltrim($path, '/');

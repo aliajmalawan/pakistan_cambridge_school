@@ -1,5 +1,5 @@
 <?php
-$seo=$seo ?? App\Core\Seo::make()->title($pageTitle ?? setting('site_name',APP_NAME))->description($metaDescription ?? setting('tagline','Pakistan Cambridge School Hafizabad'))->canonical($_SERVER['REQUEST_URI'] ?? '/');
+$seo=$seo ?? App\Core\Seo::make()->title($pageTitle ?? setting('site_name',APP_NAME))->description($metaDescription ?? setting('tagline','Pakistan Cambridge School Hafizabad'))->canonical(current_path());
 ?>
 <!doctype html><html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0A4B8C">
